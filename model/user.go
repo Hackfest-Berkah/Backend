@@ -28,3 +28,8 @@ type UserRegister struct {
 	Password        string `gorm:"notNull" json:"password"`
 	ConfirmPassword string `gorm:"notNull" json:"confirm_password"`
 }
+
+type UserCredits struct {
+	KiriBalance float64 `json:"kiri_balance"`
+	KiriPoint   float64 `json:"kiri_point"`
+}

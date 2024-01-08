@@ -23,4 +23,21 @@ func Profile(db *gorm.DB, q *gin.Engine) {
 
 		utils.HttpRespSuccess(c, http.StatusOK, "Success get user profile", user)
 	})
+
+	r.GET("/credits", middleware.Authorization(), func(c *gin.Context) {
+		ID, _ := c.Get("id")
+
+		var user model.User
+		if err := db.Where("id = ?", ID).First(&user).Error; err != nil {
+			utils.HttpRespFailed(c, http.StatusNotFound, err.Error())
+			return
+		}
+
+		userCredits := model.UserCredits{
+			KiriBalance: user.KiriBalance,
+			KiriPoint:   user.KiriPoint,
+		}
+
+		utils.HttpRespSuccess(c, http.StatusOK, "Success get user credits", userCredits)
+	})
 }
