@@ -1,0 +1,6 @@
+
+(in IDE) docker build -t hfbe .
+
+(in google SDK) docker tag hfbe gcr.io/kiri-410313/hfbe
+
+(in google SDK) docker push gcr.io/kiri-410313/hfbe

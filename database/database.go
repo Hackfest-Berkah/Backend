@@ -22,6 +22,7 @@ func MakeDatabaseConnection(data *Database) (*gorm.DB, error) {
 
 	if err := db.AutoMigrate(
 		&model.User{},
+		&model.Fleet{},
 	); err != nil {
 		return nil, err
 	}

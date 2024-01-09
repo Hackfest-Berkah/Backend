@@ -43,6 +43,7 @@ func main() {
 
 	controller.Auth(db, r)
 	controller.Profile(db, r)
+	controller.TopUp(db, r)
 
 	if err := r.Run(fmt.Sprintf(":%s", os.Getenv("PORT"))); err != nil {
 		panic(err.Error())
