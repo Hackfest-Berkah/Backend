@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/midtrans/midtrans-go"
 	"github.com/midtrans/midtrans-go/coreapi"
@@ -10,6 +11,7 @@ import (
 	"hackfest/utils"
 	"net/http"
 	"os"
+	"time"
 )
 
 func TopUp(db *gorm.DB, q *gin.Engine) {
@@ -70,19 +72,34 @@ func TopUp(db *gorm.DB, q *gin.Engine) {
 			}
 		}
 
-		resp, err := midtransClient.ChargeTransaction(req)
+		_, err := midtransClient.ChargeTransaction(req)
 		if err != nil {
 			utils.HttpRespFailed(c, http.StatusNotFound, err.Error())
 			return
 		}
 
 		user.KiriBalance += amount
+		user.UpdatedAt = time.Now()
 
 		if err := db.Save(&user).Error; err != nil {
 			utils.HttpRespFailed(c, http.StatusNotFound, err.Error())
 			return
 		}
 
-		utils.HttpRespSuccess(c, http.StatusOK, "Success top up", resp)
+		history := model.History{
+			OrderID:   utils.RandomOrderID(),
+			UserID:    user.ID,
+			Type:      "Top Up",
+			Amount:    fmt.Sprintf("+Rp%d", utils.Float64ToInt(amount, c)),
+			Time:      utils.TimeToString(time.Now()),
+			CreatedAt: time.Now(),
+		}
+
+		if err := db.Create(&history).Error; err != nil {
+			utils.HttpRespFailed(c, http.StatusNotFound, err.Error())
+			return
+		}
+
+		utils.HttpRespSuccess(c, http.StatusOK, "Success top up", "Success")
 	})
 }
