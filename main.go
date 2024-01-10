@@ -7,7 +7,6 @@ import (
 	"hackfest/controller"
 	"hackfest/database"
 	"hackfest/middleware"
-	"hackfest/utils"
 	"log"
 	"net/http"
 	"os"
@@ -37,7 +36,7 @@ func main() {
 	r.Use(middleware.CORS())
 
 	r.GET("/", func(c *gin.Context) {
-		utils.HttpRespSuccess(c, http.StatusOK, os.Getenv("ENV"), nil)
+		c.JSON(http.StatusOK, "Hallo Sayangku!")
 		return
 	})
 

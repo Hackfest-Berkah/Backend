@@ -23,6 +23,19 @@ func Auth(db *gorm.DB, q *gin.Engine) {
 			return
 		}
 
+		validEmail := utils.EmailValidator(userRegister.Email)
+
+		if !validEmail {
+			utils.HttpRespFailed(c, http.StatusInternalServerError, "Invalid Email")
+			return
+		}
+
+		err := utils.PasswordValidator(userRegister.Password)
+		if err != nil {
+			utils.HttpRespFailed(c, http.StatusInternalServerError, err.Error())
+			return
+		}
+
 		hashed, err := utils.Hash(userRegister.Password)
 		if err != nil {
 			utils.HttpRespFailed(c, http.StatusInternalServerError, err.Error())
