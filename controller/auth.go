@@ -106,7 +106,7 @@ func Auth(db *gorm.DB, q *gin.Engine) {
 			CreatedAt:   time.Now(),
 		}
 
-		qrContent := fmt.Sprintf("%s/api/v1/qr/%s", os.Getenv("BASE_URL"), newUser.ID.String())
+		qrContent := fmt.Sprintf("%s/api/v1/qr/%s/0", os.Getenv("BASE_URL"), newUser.ID.String())
 		qrCodeBuffer, err := utils.GenerateQRCode(qrContent)
 		if err != nil {
 			utils.HttpRespFailed(c, http.StatusInternalServerError, err.Error())
@@ -138,6 +138,18 @@ func Auth(db *gorm.DB, q *gin.Engine) {
 			KiriPoint:   newUser.KiriPoint,
 			CreatedAt:   newUser.CreatedAt,
 			UpdatedAt:   newUser.UpdatedAt,
+		}
+
+		newStatus := model.Status{
+			OrderID:   utils.RandomOrderID(),
+			UserID:    userResponse.ID,
+			Status:    false,
+			CreatedAt: time.Now(),
+		}
+
+		if err := db.Create(&newStatus).Error; err != nil {
+			utils.HttpRespFailed(c, http.StatusInternalServerError, err.Error())
+			return
 		}
 
 		utils.HttpRespSuccess(c, http.StatusOK, "Success Register", userResponse)
