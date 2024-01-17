@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/google/uuid"
 	"math/rand"
 	"strconv"
 	"sync"
@@ -15,6 +16,11 @@ func RandomOrderID() string {
 		b[i] = letters[rand.Intn(len(letters))]
 	}
 	return string(b)
+}
+
+func RandomUUIDString() string {
+	uuidp := uuid.New()
+	return uuidp.String()
 }
 
 var (

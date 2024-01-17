@@ -186,8 +186,20 @@ func Auth(db *gorm.DB, q *gin.Engine) {
 			return
 		}
 
+		userResponse := model.UserResponse{
+			ID:          user.ID,
+			Name:        user.Name,
+			Phone:       user.Phone,
+			Email:       user.Email,
+			Password:    user.Password,
+			KiriBalance: user.KiriBalance,
+			KiriPoint:   user.KiriPoint,
+			CreatedAt:   user.CreatedAt,
+			UpdatedAt:   user.UpdatedAt,
+		}
+
 		utils.HttpRespSuccess(c, http.StatusOK, "Parsed token", gin.H{
-			"user":  user,
+			"user":  userResponse,
 			"token": strToken,
 			"type":  "user",
 		})

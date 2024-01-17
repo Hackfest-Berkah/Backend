@@ -44,6 +44,7 @@ func main() {
 	controller.Profile(db, r)
 	controller.TopUp(db, r)
 	controller.QR(db, r)
+	controller.Fleet(db, r)
 	controller.History(db, r)
 
 	if err := r.Run(fmt.Sprintf(":%s", os.Getenv("PORT"))); err != nil {

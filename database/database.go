@@ -25,6 +25,7 @@ func MakeDatabaseConnection(data *Database) (*gorm.DB, error) {
 		&model.Fleet{},
 		&model.History{},
 		&model.Status{},
+		&model.Fleet{},
 	); err != nil {
 		return nil, err
 	}
