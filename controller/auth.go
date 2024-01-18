@@ -106,7 +106,7 @@ func Auth(db *gorm.DB, q *gin.Engine) {
 			CreatedAt:   time.Now(),
 		}
 
-		qrContent := fmt.Sprintf("%s/api/v1/qr/%s/0", os.Getenv("BASE_URL"), newUser.ID.String())
+		qrContent := fmt.Sprintf("%s/api/v1/qr/%s/fleet_id/0", os.Getenv("BASE_URL"), newUser.ID.String())
 		qrCodeBuffer, err := utils.GenerateQRCode(qrContent)
 		if err != nil {
 			utils.HttpRespFailed(c, http.StatusInternalServerError, err.Error())

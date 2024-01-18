@@ -7,6 +7,7 @@ import (
 
 type Fleet struct {
 	ID              uuid.UUID `gorm:"primaryKey" json:"id"`
+	Type            string    `json:"type"`
 	Plate           string    `json:"plate"`
 	Route           string    `json:"route"`
 	CurrentCapacity int       `json:"current_capacity"`

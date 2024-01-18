@@ -61,7 +61,7 @@ func History(db *gorm.DB, q *gin.Engine) {
 
 		var histories []model.History
 		if err := db.Where("user_id = ?", user.ID).
-			Where("type IN ?", []string{"Shared Taxi", "City Bus"}).
+			Where("type IN ?", []string{"Microbus", "City Bus"}).
 			Find(&histories).Error; err != nil {
 			utils.HttpRespFailed(c, http.StatusNotFound, err.Error())
 			return

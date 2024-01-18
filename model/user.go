@@ -46,3 +46,15 @@ type UserCredits struct {
 	KiriBalance float64 `json:"kiri_balance"`
 	KiriPoint   float64 `json:"kiri_point"`
 }
+
+type UserEditProfile struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	Phone string `json:"phone"`
+}
+
+type UserChangePassword struct {
+	OldPassword     string `json:"old_password"`
+	NewPassword     string `json:"new_password"`
+	ConfirmPassword string `json:"confirm_password"`
+}
