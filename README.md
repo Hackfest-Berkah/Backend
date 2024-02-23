@@ -1,7 +1,6 @@
 # 👉🏻 KIRI - Berkah Team - HACKFEST 2023
 
-<img width="1100" alt="Banner cordova" src="https://storage.googleapis.com/image-kiri/test-files/mobile/cover%20kiri.png">
-
+<img width="1100" alt="Banner cordova" src="https://storage.googleapis.com/image-kiri/test-files/mobile/cover%20gsc%20kiri.png"> 
 
 # ✨ Description
 ## Idea
